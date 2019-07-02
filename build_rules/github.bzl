@@ -70,14 +70,7 @@ def github_new_http_archive(name, package, build_file = None, build_file_content
         build_file_content = build_file_content,
     )
 
-def github_go_repository(
-        name,
-        package,
-        importpath = "",
-        commit = None,
-        tag = None,
-        mirror_urls = [],
-        **kwargs):
+def github_go_repository(name, package, importpath = "", commit, tag, sha256 = "", mirror_urls = [], **kwargs):
     """Adding go repository from github and convert it to bazel repository.
 
     Note that for now the dependencies will not be pulled in automatically. You
@@ -94,10 +87,9 @@ def github_go_repository(
         github.com/Shopify/sarama.
       commit: (string) Commit number.
       tag: (string) Commit tag. Exactly one of commit or tag is required.
-      importpath: (string) Optionally override the import path.
-      sha256: (string) Optional checksum.
+      mirror_urls: (list of string) Optional list of mirror URLs. This does not
+        have to include the github URL.
     """
-    remote = "https://github.com/" + package
     if importpath == "":
         importpath = "github.com/" + package
     return go_repository(
@@ -105,5 +97,6 @@ def github_go_repository(
         importpath = importpath,
         urls = [_github_tar_gz_url(package, commit, tag)] + mirror_urls,
         strip_prefix = _tar_gz_prefix(package, commit, tag),
+        sha256 = sha256,
         **kwargs
     )
