@@ -70,7 +70,14 @@ def github_new_http_archive(name, package, build_file = None, build_file_content
         build_file_content = build_file_content,
     )
 
-def github_go_repository(name, package, importpath = "", commit = None, tag = None, sha256 = ""):
+def github_go_repository(
+        name,
+        package,
+        importpath = "",
+        commit = None,
+        tag = None,
+        mirror_urls = [],
+        **kwargs):
     """Adding go repository from github and convert it to bazel repository.
 
     Note that for now the dependencies will not be pulled in automatically. You
