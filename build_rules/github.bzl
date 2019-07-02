@@ -103,9 +103,7 @@ def github_go_repository(
     return go_repository(
         name = name,
         importpath = importpath,
-        remote = remote,
-        vcs = "git",
-        commit = commit,
-        tag = tag,
-        sha256 = sha256,
+        urls = [_github_tar_gz_url(package, commit, tag)] + mirror_urls,
+        strip_prefix = _tar_gz_prefix(package, commit, tag),
+        **kwargs
     )
