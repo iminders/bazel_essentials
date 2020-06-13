@@ -1,4 +1,4 @@
-workspace(name = "com_github_lingochamp_bazel_essentials")
+workspace(name = "com_github_iminders_bazel_essentials")
 
 load("//build_rules:init_go.bzl", "init_go")
 
